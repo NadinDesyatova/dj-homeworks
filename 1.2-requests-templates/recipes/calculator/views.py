@@ -7,8 +7,8 @@ DATA = {
         'соль, ч.л.': 0.5,
     },
     'pasta': {
-        'макароны, г': 0.3,
-        'сыр, г': 0.05,
+        'макароны, кг': 0.3,
+        'сыр, кг': 0.05,
     },
     'buter': {
         'хлеб, ломтик': 1,
@@ -16,15 +16,45 @@ DATA = {
         'сыр, ломтик': 1,
         'помидор, ломтик': 1,
     },
-    # можете добавить свои рецепты ;)
 }
 
-# Напишите ваш обработчик. Используйте DATA как источник данных
-# Результат - render(request, 'calculator/index.html', context)
-# В качестве контекста должен быть передан словарь с рецептом:
-# context = {
-#   'recipe': {
-#     'ингредиент1': количество1,
-#     'ингредиент2': количество2,
-#   }
-# }
+def get_omlet_recipe(request):
+    # показывает список ингредиентов и их количество для приготовления омлета
+    servings_number = int(request.GET.get('servings', 1))
+    ingredients: dict = DATA['omlet']
+    for ingredient, value in ingredients.items():
+        ingredients[ingredient] = servings_number * value
+
+    context = {
+        'recipe': ingredients
+
+    }
+    return render(request, 'calculator/index.html', context)
+
+
+def get_pasta_recipe(request):
+    # показывает список ингредиентов и их количество для приготовления макарон
+    servings_number = int(request.GET.get('servings', 1))
+    ingredients: dict = DATA['pasta']
+    for ingredient, value in ingredients.items():
+        ingredients[ingredient] = servings_number * value
+
+    context = {
+        'recipe': ingredients
+
+    }
+    return render(request, 'calculator/index.html', context)
+
+
+def get_buter_recipe(request):
+    # показывает список ингредиентов и их количество для приготовления бутерброда
+    servings_number = int(request.GET.get('servings', 1))
+    ingredients: dict = DATA['buter']
+    for ingredient, value in ingredients.items():
+        ingredients[ingredient] = servings_number * value
+
+    context = {
+        'recipe': ingredients
+
+    }
+    return render(request, 'calculator/index.html', context)
