@@ -8,7 +8,7 @@ from django.conf import settings
 
 bus_stations_list: list = []
 with open(settings.BUS_STATION_CSV, encoding='utf-8') as f:
-    reader = csv.DictReader(f)
+    reader = list(csv.DictReader(f, delimiter=','))
     for row in reader:
         bus_stations_list.append({
             'Name': row.get('StationName'),

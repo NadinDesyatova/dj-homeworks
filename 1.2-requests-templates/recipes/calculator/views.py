@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 
 DATA = {
@@ -18,38 +19,15 @@ DATA = {
     },
 }
 
-def get_omlet_recipe(request):
-    # показывает список ингредиентов и их количество для приготовления омлета
+
+def get_recipe(request, dish_name):
+    if dish_name not in DATA:
+        raise Http404('Рецепт не найден')
+
+    # показывает список ингредиентов и их количество для блюда из DATA
     servings_number = int(request.GET.get('servings', 1))
-    ingredients: dict = DATA['omlet']
-    for ingredient, value in ingredients.items():
-        ingredients[ingredient] = servings_number * value
-
-    context = {
-        'recipe': ingredients
-
-    }
-    return render(request, 'calculator/index.html', context)
-
-
-def get_pasta_recipe(request):
-    # показывает список ингредиентов и их количество для приготовления макарон
-    servings_number = int(request.GET.get('servings', 1))
-    ingredients: dict = DATA['pasta']
-    for ingredient, value in ingredients.items():
-        ingredients[ingredient] = servings_number * value
-
-    context = {
-        'recipe': ingredients
-
-    }
-    return render(request, 'calculator/index.html', context)
-
-
-def get_buter_recipe(request):
-    # показывает список ингредиентов и их количество для приготовления бутерброда
-    servings_number = int(request.GET.get('servings', 1))
-    ingredients: dict = DATA['buter']
+    # Используем копию, чтобы не изменять исходный словарь
+    ingredients: dict = DATA[dish_name].copy()
     for ingredient, value in ingredients.items():
         ingredients[ingredient] = servings_number * value
 
