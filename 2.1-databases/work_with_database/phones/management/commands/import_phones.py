@@ -14,13 +14,14 @@ class Command(BaseCommand):
 
         for phone in phones:
             # Выполняет сохранение модели
-            new_phone = Phone(
-                id=phone['id'],
-                name=phone['name'],
-                price=phone['price'],
-                image=phone['image'],
-                release_date=phone['release_date'],
-                lte_exists=phone['lte_exists']
-            )
+            # new_phone = Phone(
+            #     id=phone['id'],
+            #     name=phone['name'],
+            #     price=phone['price'],
+            #     image=phone['image'],
+            #     release_date=phone['release_date'],
+            #     lte_exists=phone['lte_exists']
+            # )
+            phone_object = Phone(**phone)
 
-            new_phone.save()
+            phone_object.save()

@@ -6,7 +6,7 @@
 
 - `/books/` —- отображение списка книг (шаблон [books_list.html](templates/books/books_list.html));
 - `/books/2021-01-02/` — отображение списка книг за дату 2021-01-02 (год, месяц, день)
-(шаблон [books_on_required_date.html](templates/books/books_on_required_date.html)).
+(шаблон тот же).
 
 Книга имеет три параметра:
 
